@@ -2,31 +2,40 @@
 # https://www.youtube.com/@MacMimic
 
 # Basic Script
-tell application "Finder"
-  set newFile to (make new file at (the target of the front window) as alias)
-  set the name of newFile to “New Text Document.txt"
-end tell
+on run {input, parameters}
+	
+	tell application "Finder"
+		set newFile to (make new file at (the target of the front window) as alias)
+		set the name of newFile to "New Text Document.txt"
+	end tell
+	
+	return input
+end run
 
 # Improved Script
-tell application "Finder"
-  set targetFolder to (the target of the front window) as alias
-  set baseName to "New Text Document"
-  set fileExtension to ".txt"
-  set newFileName to baseName & fileExtension
-  set fileExists to true
-  set fileCounter to 1
-  
-  -- Check if the first file exists, if yes, increment name
-  repeat while fileExists
-      if not (exists file newFileName of targetFolder) then
-          set fileExists to false
-      else
-          set newFileName to baseName & "_" & fileCounter & fileExtension
-          set fileCounter to fileCounter + 1
-      end if
-  end repeat
-  
-  -- Create the new file with the unique name
-  set newFile to make new file at targetFolder
-  set name of newFile to newFileName
-end tell
+on run {input, parameters}
+	
+	tell application "Finder"
+		set targetFolder to (the target of the front window) as alias
+		set baseName to "New Text Document"
+		set fileExtension to ".txt"
+		set newFileName to baseName & fileExtension
+		set fileExists to true
+		set fileCounter to 1
+		
+		-- Check if the first file exists, if yes, increment name
+		repeat while fileExists
+			if not (exists file newFileName of targetFolder) then
+				set fileExists to false
+			else
+				set newFileName to baseName & "_" & fileCounter & fileExtension
+				set fileCounter to fileCounter + 1
+			end if
+		end repeat
+		
+		-- Create the new file with the unique name
+		set newFile to make new file at targetFolder
+		set name of newFile to newFileName
+	end tell
+	
+end run
